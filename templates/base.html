@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Hello Swoop!</title>
+        <style> body { font-family: Arial, serif; margin: 35px; } </style>
+    </head>
+
+    <body>
+        <p>
+            <a href="{{ url_for('index') }}">Home</a> | <a href="{{ url_for('logged_in') }}">Secret</a>
+            {% if session['email'] %}
+                | <a href="{{ url_for('logout') }}">Log out</a>
+            {% endif %}
+        </p>
+
+        <div id="flash">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flash">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div id="content">{% block content %}{% endblock %}</div>
+    </body>
+
+</html>
